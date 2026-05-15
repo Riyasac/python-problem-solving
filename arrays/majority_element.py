@@ -46,7 +46,8 @@ class Solution(object):
         return candidate
 
 def main():
-    nums = [2, 2, 1, 1, 1, 2, 3, 3, 2, 5, 5, 5]
+    # nums = [2, 2, 1, 1, 1, 2, 3, 3, 2, 5, 5, 5]
+    nums = [-1, -1, 2]
     Solution().majorityElement(nums)
 
 if __name__ == "__main__":
