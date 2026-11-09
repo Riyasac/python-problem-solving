@@ -110,4 +110,116 @@ result = df[
     (df["age"] > 25) &
     (df["salary"] > 40000)
 ]
-print("Age above 25 and salary above 40000\n", result)
+print("\nAge above 25 and salary above 40000\n", result)
+
+result = df[
+    (df["age"] > 28) |
+    (df["salary"] > 50000)
+]
+print("\nAge above 28 or salary above 50000\n", result)
+
+result = df[~(df["salary"] > 40000)]
+print("\nEmployees not earning more than 40000\n", result)
+
+# Selecting a single column
+names = df["name"]
+print("\nNames of employees\n", names)
+
+# Selecting multiple columns
+selected_columns = df[["name", "salary"]]
+print("\nSelected columns\n", selected_columns)
+
+# Selecting rows based on a list of values
+result = df[df["name"].isin(["Rahul", "Priya"])]
+print("\nSelected rows\n", result)
+
+result = df[df["salary"].between(30000, 50000)]
+print("\nEmployees earning between 30000 and 50000\n", result)
+
+result = df[df["salary"].isna()]
+print("\nEmployees with missing salary\n", result)
+
+result = df[df["salary"].notna()]
+print("\nEmployees with non-missing salary\n", result)
+
+result = df.query("salary > 40000 and age > 25")
+print("\nEmployees earning more than 40000 and age above 25\n", result)
+
+# Ranking employees based on salary
+df["salary_rank"] = df["salary"].rank(
+    ascending=False
+)
+print("\nEmployees with salary rank\n", df)
+
+# Finding the top 3 highest paid employees
+result = df.nlargest(3, "salary")
+print("\nTop 3 highest paid employees\n", result)
+
+# Find the three employees with the lowest salaries.
+result = df.nsmallest(3, "salary")
+print("\nFind the three employees with the lowest salaries. \n", result)
+
+# Sort the DataFrame by salary in descending order
+result = df.sort_values(
+    by="salary",
+    ascending=False
+)
+# Reset the index
+result = result.reset_index(drop=True)
+print(result)
+
+# Adding a new column to the DataFrame
+df["department"] = [
+    "IT",
+    "HR",
+    "Finance",
+    "Sales",
+]
+print("\nDataFrame with new column:\n", df)
+
+# Adding a new column with a default value
+df["company"] = "ABC Technologies"
+print("\nDataFrame with new column default value:\n", df)
+
+# Inserting a new column at a specific position
+df.insert(
+    1,
+    "email",
+    "employee@example.com"
+)
+print("\nDataFrame with inserted column:\n", df)
+
+# Using the assign() method to add new columns
+new_df = df.assign(
+    bonus=df["salary"] * 0.10,
+    total_salary=df["salary"] * 1.10
+)
+print("\nDataFrame with new columns using assign():\n", new_df)
+
+
+# Dropping a column from the DataFrame
+new_df = df.drop(columns=["age"])
+print("\nDataFrame with column dropped:\n", new_df)
+
+# Dropping a row from the DataFrame
+df = df.drop_duplicates()
+print("\nDataFrame with duplicate rows dropped:\n", df)
+
+
+# Adding more rows to demonstrate dropping duplicates
+new_rows = pd.DataFrame({
+    "emp_id": [105, 106],
+    "name": ["John", "Jane"],
+    "age": [30, 30],
+    "salary": [50000, 60000]
+})
+df = pd.concat([df, new_rows], ignore_index=True)
+print("\nDataFrame after adding new rows:\n", df)
+
+# Dropping duplicate rows based on a specific column
+df = df.drop_duplicates(
+    subset=["age"]
+)
+print("\nDataFrame with duplicate rows dropped based on age:\n", df)
+
+
